@@ -24,20 +24,27 @@ jobs:
           # 定义仓库对数组
           repo_pairs=(
             "Acode-Foundation/Acode:zxgv5/a-Acode"
-            "Xed-Editor/Xed-Editor:zxgv5/a-Xed-Editor"
-            "bggRGjQaUbCoE/PiliPlus:zxgv5/a-PiliPlus"
-            "wgtunnel/wgtunnel:zxgv5/a-wgtunnel"
-            "fantasytyx/bv:zxgv5/a-fantasy-bv"
-            "cat3399/blbl:zxgv5/a-blbl"
-            "T8RIN/ImageToolbox:zxgv5/a-ImageToolbox"
-            "rainxchzed/Github-Store:zxgv5/a-Github-Store"
+            "beemdevelopment/Aegis:zxgv5/a-Aegis"
             "MuntashirAkon/AppManager:zxgv5/a-AppManager"
-            "localdesktop/localdesktop:zxgv5/a-localdesktop"
-            "termux/termux-app:zxgv5/a-termux-app"
-            "WirelessAlien/ZipXtract:zxgv5/a-ZipXtract"
-            "softprops/action-gh-release:zxgv5/gh-ReleaseAction"
+            "cat3399/blbl:zxgv5/a-blbl"
+            "fantasytyx/bv:zxgv5/a-fantasy-bv"
             "slapperwan/gh4a:zxgv5/a-gh4a"
+            "rainxchzed/Github-Store:zxgv5/a-Github-Store"
+            "T8RIN/ImageToolbox:zxgv5/a-ImageToolbox"
+            "koreader/koreader:zxgv5/a-koreader"
+            "localdesktop/localdesktop:zxgv5/a-localdesktop"
+            "gsantner/markor:zxgv5/a-markor"
             "zhanghai/MaterialFiles:zxgv5/a-MaterialFiles"
+            "maotoumao/MusicFree:zxgv5/a-MusicFree"
+            "bggRGjQaUbCoE/PiliPlus:zxgv5/a-PiliPlus"
+            "readest/readest:zxgv5/a-readest"
+            "massivemadness/Squircle-CE:zxgv5/a-Squircle-CE"
+            "termux/termux-app:zxgv5/a-termux-app"
+            "wgtunnel/wgtunnel:zxgv5/a-wgtunnel"
+            "Xed-Editor/Xed-Editor:zxgv5/a-Xed-Editor"
+            "WirelessAlien/ZipXtract:zxgv5/a-ZipXtract"
+            "BACNext/BACNext:zxgv5/BACNext"
+            "softprops/action-gh-release:zxgv5/gh-ReleaseAction"
           )
           for pair in "${repo_pairs[@]}"; do
             SOURCE_REPO="${pair%:*}"
@@ -47,7 +54,7 @@ jobs:
             DEFAULT_BRANCH_INFO=$(git ls-remote --symref "https://github.com/${SOURCE_REPO}.git" HEAD)
             DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2; exit}')
             if [ -z "$DEFAULT_BRANCH" ]; then
-              DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | grep -o 'refs/heads/[^ 	]*' | head -1 | sed 's|refs/heads/||')
+              DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | grep -o 'refs/heads/[^         ]*' | head -1 | sed 's|refs/heads/||')
             fi
             echo "默认分支: $DEFAULT_BRANCH"
             # 2. 克隆 Fork 仓库
