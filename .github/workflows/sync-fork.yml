@@ -1,17 +1,17 @@
 name: sync-fork
- 
+
 on:
   schedule:
     - cron: '0 4 * * *'
   workflow_dispatch:
- 
+
 jobs:
   sync-forks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ci repository
         uses: actions/checkout@main
- 
+
       - name: Setup git
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -25,12 +25,14 @@ jobs:
           repo_pairs=(
             "Acode-Foundation/Acode:zxgv5/a-Acode"
             "beemdevelopment/Aegis:zxgv5/a-Aegis"
+            "TeamAmaze/AmazeFileManager:zxgv5/a-AmazeFileManager"
             "Anxcye/anx-reader:zxgv5/a-anx-reader"
             "MuntashirAkon/AppManager:zxgv5/a-AppManager"
             "cat3399/blbl:zxgv5/a-blbl"
             "fantasytyx/bv:zxgv5/a-fantasy-bv"
             "slapperwan/gh4a:zxgv5/a-gh4a"
             "rainxchzed/Github-Store:zxgv5/a-Github-Store"
+            "gkd-kit/gkd:zxgv5/a-gkd"
             "T8RIN/ImageToolbox:zxgv5/a-ImageToolbox"
             "koreader/koreader:zxgv5/a-koreader"
             "localdesktop/localdesktop:zxgv5/a-localdesktop"
@@ -39,6 +41,7 @@ jobs:
             "maotoumao/MusicFree:zxgv5/a-MusicFree"
             "bggRGjQaUbCoE/PiliPlus:zxgv5/a-PiliPlus"
             "readest/readest:zxgv5/a-readest"
+            "RikkaApps/Shizuku:zxgv5/a-Shizuku"
             "massivemadness/Squircle-CE:zxgv5/a-Squircle-CE"
             "termux/termux-app:zxgv5/a-termux-app"
             "wgtunnel/wgtunnel:zxgv5/a-wgtunnel"
