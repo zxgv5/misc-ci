@@ -1,17 +1,17 @@
 name: sync-fork
-
+ 
 on:
   schedule:
     - cron: '0 4 * * *'
   workflow_dispatch:
-
+ 
 jobs:
   sync-forks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ci repository
         uses: actions/checkout@main
-
+ 
       - name: Setup git
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -45,6 +45,7 @@ jobs:
             "RikkaApps/Shizuku:zxgv5/a-Shizuku"
             "massivemadness/Squircle-CE:zxgv5/a-Squircle-CE"
             "termux/termux-app:zxgv5/a-termux-app"
+            "RikkaApps/WADB:zxgv5/a-WADB"
             "wgtunnel/wgtunnel:zxgv5/a-wgtunnel"
             "Xed-Editor/Xed-Editor:zxgv5/a-Xed-Editor"
             "WirelessAlien/ZipXtract:zxgv5/a-ZipXtract"
