@@ -39,6 +39,7 @@ jobs:
             "localdesktop/localdesktop:zxgv5/a-localdesktop"
             "gsantner/markor:zxgv5/a-markor"
             "zhanghai/MaterialFiles:zxgv5/a-MaterialFiles"
+            "ikarus23/MifareClassicTool:zxgv5/a-MifareClassicTool"
             "maotoumao/MusicFree:zxgv5/a-MusicFree"
             "bggRGjQaUbCoE/PiliPlus:zxgv5/a-PiliPlus"
             "readest/readest:zxgv5/a-readest"
@@ -55,7 +56,6 @@ jobs:
           for pair in "${repo_pairs[@]}"; do
             SOURCE_REPO="${pair%:*}"
             FORK_REPO="${pair#*:}"
-            # 1. 获取源仓库默认分支
             echo "1、获取 $SOURCE_REPO 默认分支..."
             DEFAULT_BRANCH_INFO=$(git ls-remote --symref "https://github.com/${SOURCE_REPO}.git" HEAD)
             DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2; exit}')
@@ -63,7 +63,6 @@ jobs:
               DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | grep -o 'refs/heads/[^         ]*' | head -1 | sed 's|refs/heads/||')
             fi
             echo "默认分支: $DEFAULT_BRANCH"
-            # 2. 克隆 Fork 仓库
             echo "2、克隆镜像仓库..."
             if ! git clone --depth=1 --branch="$DEFAULT_BRANCH" "https://${GH_TOKEN}@github.com/${FORK_REPO}.git" sync-repo; then
               echo "警告：克隆失败，尝试克隆默认分支..."
@@ -74,18 +73,14 @@ jobs:
             else
               cd sync-repo
             fi
-            # 3. 添加上游源仓库并拉取更新
             echo "3、拉取上游更新..."
             git remote add upstream "https://github.com/${SOURCE_REPO}.git" 2>/dev/null || git remote set-url upstream "https://github.com/${SOURCE_REPO}.git"
             git fetch upstream "$DEFAULT_BRANCH"
-            # 4. 检查是否有新提交
             echo "4、检查差异..."
-            # 比较上游拉取的内容与本地分支
             if git diff --quiet FETCH_HEAD "$DEFAULT_BRANCH"; then
               echo "[$DEFAULT_BRANCH] 已是最新，无需同步。"
             else
               echo "检测到更新，正在同步..."
-              # 5. 合并上游更新并推送
               if git merge --ff-only FETCH_HEAD; then
                 git push origin "$DEFAULT_BRANCH"
                 echo "[$DEFAULT_BRANCH] 同步完成。"
@@ -97,7 +92,6 @@ jobs:
                 echo "[$DEFAULT_BRANCH] 已强制同步。"
               fi
             fi
-            # 6. 清理并返回上级目录
             echo "5、清理..."
             cd ..
             rm -rf sync-repo
