@@ -1,17 +1,17 @@
 name: sync-fork
- 
+
 on:
   schedule:
     - cron: '0 4 * * *'
   workflow_dispatch:
- 
+
 jobs:
   sync-forks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ci repository
         uses: actions/checkout@main
- 
+
       - name: Setup git
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -28,6 +28,7 @@ jobs:
             "TeamAmaze/AmazeFileManager:zxgv5/a-AmazeFileManager"
             "Anxcye/anx-reader:zxgv5/a-anx-reader"
             "MuntashirAkon/AppManager:zxgv5/a-AppManager"
+            "permissionlesstech/bitchat-android:zxgv5/a-bitchat"
             "cat3399/blbl:zxgv5/a-blbl"
             "fantasytyx/bv:zxgv5/a-fantasy-bv"
             "cyanonoob/flauncher:zxgv5/a-flauncher"
