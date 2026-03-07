@@ -35,12 +35,11 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p ./apks
-          DOWNLOAD_CMD="apkeep -a ${{ inputs.package_name }} -d apkmirror --architecture ${{ inputs.architecture }} ./apks"
-          # 若指定版本号，添加版本参数
+          DOWNLOAD_CMD="apkeep -a ${{ inputs.package_name }} -d apkmirror --arch ${{ inputs.architecture }} ./apks"
+          # 若指定版本号，添加版本参数（假设使用 --version）
           if [ -n "${{ inputs.version_code }}" ]; then
-            DOWNLOAD_CMD="${DOWNLOAD_CMD} --version-code ${{ inputs.version_code }}"
+            DOWNLOAD_CMD="${DOWNLOAD_CMD} --version ${{ inputs.version_code }}"
           fi
-          # 执行下载
           echo "开始下载应用：${{ inputs.package_name }}"
           eval $DOWNLOAD_CMD
           echo "下载完成，文件清单："
