@@ -1,6 +1,4 @@
 name: apk-downloader
-run-name: download apk - ${{ inputs.package_name }}
-# 触发方式：手动触发，仅需填写包名即可运行
 on:
   workflow_dispatch:
     inputs:
@@ -14,7 +12,7 @@ on:
         default: "arm64-v8a"
         type: string
       version_code:
-        description: "应用版本号（可选，不填默认下载最新版）"
+        description: "版本（默认最新）"
         required: false
         type: string
 
@@ -25,32 +23,24 @@ jobs:
       - name: Initial env
         run: |
           set -euo pipefail
-          sudo apt update && sudo apt install -y wget curl tar
+          sudo apt update && sudo apt install -y wget curl build-essential
 
-      - name: Get latest apkeep
-        id: get-apkeep
-        run: |
-          APKEEP_VERSION=$(curl -s https://api.github.com/repos/EFForg/apkeep/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-          echo "APKEEP_VERSION=${APKEEP_VERSION}" >> $GITHUB_ENV
-          echo "已获取apkeep版本: ${APKEEP_VERSION}"
-
-      - name: Install apkeep
+      - name: Install latest apkeep
         run: |
           set -euo pipefail
-          wget -O apkeep.tar.gz "https://github.com/EFForg/apkeep/releases/download/${{ env.APKEEP_VERSION }}/apkeep-${{ env.APKEEP_VERSION }}-x86_64-unknown-linux-gnu.tar.gz"
-          tar xzf apkeep.tar.gz
-          sudo mv apkeep /usr/local/bin/
+          cargo install apkeep
           apkeep --version
 
-      - name: Create directory and download
+      - name: Create directory and download apk
         run: |
-          mkdir -p ./apks
           set -euo pipefail
+          mkdir -p ./apks
           DOWNLOAD_CMD="apkeep -a ${{ inputs.package_name }} -d apkmirror --architecture ${{ inputs.architecture }} ./apks"
           # 若指定版本号，添加版本参数
           if [ -n "${{ inputs.version_code }}" ]; then
             DOWNLOAD_CMD="${DOWNLOAD_CMD} --version-code ${{ inputs.version_code }}"
           fi
+          # 执行下载
           echo "开始下载应用：${{ inputs.package_name }}"
           eval $DOWNLOAD_CMD
           echo "下载完成，文件清单："
