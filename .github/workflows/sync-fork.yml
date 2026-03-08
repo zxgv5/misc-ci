@@ -47,7 +47,7 @@ jobs:
             "massivemadness/Squircle-CE:zxgv5/a-Squircle-CE"
             "termux/termux-app:zxgv5/a-termux-app"
             "RikkaApps/WADB:zxgv5/a-WADB"
-            "wgtunnel/wgtunnel:zxgv5/a-wgtunnel"
+            "wgtunnel/android:zxgv5/a-wgtunnel"
             "Xed-Editor/Xed-Editor:zxgv5/a-Xed-Editor"
             "WirelessAlien/ZipXtract:zxgv5/a-ZipXtract"
             "BACNext/BACNext:zxgv5/BACNext"
