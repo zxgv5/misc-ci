@@ -1,17 +1,17 @@
 name: sync-fork
-
+ 
 on:
   schedule:
     - cron: '0 4 * * *'
   workflow_dispatch:
-
+ 
 jobs:
   sync-forks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ci repository
         uses: actions/checkout@main
-
+ 
       - name: Setup git
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -27,6 +27,8 @@ jobs:
             "beemdevelopment/Aegis:zxgv5/a-Aegis"
             "TeamAmaze/AmazeFileManager:zxgv5/a-AmazeFileManager"
             "Anxcye/anx-reader:zxgv5/a-anx-reader"
+            "EFForg/apkeep:zxgv5/apk-downloader"
+            "rumboalla/apkupdater:zxgv5/a-apkupdater"
             "MuntashirAkon/AppManager:zxgv5/a-AppManager"
             "cat3399/blbl:zxgv5/a-blbl"
             "fantasytyx/bv:zxgv5/a-fantasy-bv"
@@ -35,7 +37,9 @@ jobs:
             "OpenHub-Store/Github-Store:zxgv5/a-Github-Store"
             "gkd-kit/gkd:zxgv5/a-gkd"
             "T8RIN/ImageToolbox:zxgv5/a-ImageToolbox"
+            "Kunzisoft/KeePassDX:zxgv5/a-KeePassDX"
             "koreader/koreader:zxgv5/a-koreader"
+            "threethan/LightningLauncher:zxgv5/a-LightningLauncher"
             "localdesktop/localdesktop:zxgv5/a-localdesktop"
             "gsantner/markor:zxgv5/a-markor"
             "zhanghai/MaterialFiles:zxgv5/a-MaterialFiles"
