@@ -41,6 +41,7 @@ jobs:
             "koreader/koreader:zxgv5/a-koreader"
             "threethan/LightningLauncher:zxgv5/a-LightningLauncher"
             "localdesktop/localdesktop:zxgv5/a-localdesktop"
+            "lyswhut/lx-music-mobile:zxgv5/a-lx-music-mobile"
             "gsantner/markor:zxgv5/a-markor"
             "zhanghai/MaterialFiles:zxgv5/a-MaterialFiles"
             "ikarus23/MifareClassicTool:zxgv5/a-MifareClassicTool"
