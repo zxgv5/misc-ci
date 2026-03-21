@@ -26,6 +26,7 @@ jobs:
             "bggRGjQaUbCoE/PiliPlus:zxgv5/a-PiliPlus"
             "fantasytyx/bv:zxgv5/a-fantasy-bv"
             "cat3399/blbl:zxgv5/a-blbl"
+            "jay3-yy/BiliPai:zxgv5/a-BiliPai"
           )
           for pair in "${repo_pairs[@]}"; do
             SOURCE_REPO="${pair%:*}"
@@ -35,7 +36,7 @@ jobs:
             DEFAULT_BRANCH_INFO=$(git ls-remote --symref "https://github.com/${SOURCE_REPO}.git" HEAD)
             DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2; exit}')
             if [ -z "$DEFAULT_BRANCH" ]; then
-              DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | grep -o 'refs/heads/[^ 	]*' | head -1 | sed 's|refs/heads/||')
+              DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | grep -o 'refs/heads/[^         ]*' | head -1 | sed 's|refs/heads/||')
             fi
             echo "默认分支: $DEFAULT_BRANCH"
             # 2. 克隆 Fork 仓库
