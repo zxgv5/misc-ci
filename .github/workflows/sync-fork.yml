@@ -24,6 +24,7 @@ jobs:
           # 定义仓库对数组
           repo_pairs=(
             "Acode-Foundation/Acode:zxgv5/a-Acode"
+            "wgtunnel/android:zxgv5/a-wgtunnel"
             "lovegaoshi/azusa-player-mobile:zxgv5/a-azusa-player-mobile"
             "beemdevelopment/Aegis:zxgv5/a-Aegis"
             "TeamAmaze/AmazeFileManager:zxgv5/a-AmazeFileManager"
@@ -31,6 +32,7 @@ jobs:
             "EFForg/apkeep:zxgv5/apk-downloader"
             "rumboalla/apkupdater:zxgv5/a-apkupdater"
             "MuntashirAkon/AppManager:zxgv5/a-AppManager"
+            "jay3-yy/BiliPai:zxgv5/a-BiliPai"
             "cat3399/blbl:zxgv5/a-blbl"
             "fantasytyx/bv:zxgv5/a-fantasy-bv"
             "cyanonoob/flauncher:zxgv5/a-flauncher"
@@ -51,11 +53,11 @@ jobs:
             "ImranR98/Obtainium:zxgv5/a-Obtainium"
             "bggRGjQaUbCoE/PiliPlus:zxgv5/a-PiliPlus"
             "readest/readest:zxgv5/a-readest"
+            "rustdesk/rustdesk:zxgv5/a-rustdesk"
             "RikkaApps/Shizuku:zxgv5/a-Shizuku"
             "massivemadness/Squircle-CE:zxgv5/a-Squircle-CE"
             "termux/termux-app:zxgv5/a-termux-app"
             "RikkaApps/WADB:zxgv5/a-WADB"
-            "wgtunnel/android:zxgv5/a-wgtunnel"
             "Xed-Editor/Xed-Editor:zxgv5/a-Xed-Editor"
             "WirelessAlien/ZipXtract:zxgv5/a-ZipXtract"
             "BACNext/BACNext:zxgv5/BACNext"
