@@ -2,7 +2,7 @@ name: sync-fork-libs00
  
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 14 * * *'
   workflow_dispatch:
  
 jobs:
