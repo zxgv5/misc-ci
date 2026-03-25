@@ -60,7 +60,7 @@ jobs:
             "RikkaApps/WADB:zxgv5/a-WADB"
             "Xed-Editor/Xed-Editor:zxgv5/a-Xed-Editor"
             "WirelessAlien/ZipXtract:zxgv5/a-ZipXtract"
-            "zfdang/zSMTH-Android::zxgv5/a-zSMTH"
+            "zfdang/zSMTH-Android:zxgv5/a-zSMTH"
           )
           for pair in "${repo_pairs[@]}"; do
             SOURCE_REPO="${pair%:*}"
