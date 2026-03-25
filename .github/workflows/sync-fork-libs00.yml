@@ -23,6 +23,7 @@ jobs:
         run: |
           # 定义仓库对数组
           repo_pairs=(
+            "BACNext/BACNext:zxgv5/lib-BACNext"
             "weidai11/cryptopp:zxgv5/lib-cryptopp"
             "pjkundert/ezpwd-reed-solomon:zxgv5/lib-ezpwd-reed-solomon"
             "jeaiii/itoa:zxgv5/lib-Fast-itoa"
@@ -42,6 +43,7 @@ jobs:
             "calccrypto/uint128_t:zxgv5/lib-uint128_t"
             "calccrypto/uint256_t:zxgv5/lib-uint256_t"
             "Cyan4973/xxHash:zxgv5/lib-xxHash"
+            "softprops/action-gh-release:zxgv5/gh-ReleaseAction"
           )
           for pair in "${repo_pairs[@]}"; do
             SOURCE_REPO="${pair%:*}"
