@@ -29,7 +29,7 @@ jobs:
           )
           for pair in "${repo_pairs[@]}"; do
             SOURCE_URL="${pair%:*}"
-            TARGET_REPO="${pair#*:}"
+            TARGET_REPO="${pair##*:}"
             echo "========================================"
             echo "开始同步：$SOURCE_URL -> $TARGET_REPO"
             echo "========================================"
