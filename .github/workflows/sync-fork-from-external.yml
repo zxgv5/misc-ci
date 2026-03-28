@@ -1,0 +1,82 @@
+name: sync-fork-from-external
+
+on:
+  schedule:
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-repos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Sync all repositories
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_FORK_TOKEN }}  # GitHub Personal Access Token（需有写入目标仓库权限）
+          # 如需访问私有 GitLab 仓库，可添加以下 Secret：
+          # GITLAB_TOKEN: ${{ secrets.GITLAB_ACCESS_TOKEN }}
+        run: |
+          repo_pairs=(
+            "https://gitlab.com/Atharok/BtRemote.git:zxgv5/a-BtRemote"
+            # 在此添加更多仓库对，每行一个
+          )
+          for pair in "${repo_pairs[@]}"; do
+            SOURCE_URL="${pair%:*}"
+            TARGET_REPO="${pair#*:}"
+            echo "========================================"
+            echo "开始同步：$SOURCE_URL -> $TARGET_REPO"
+            echo "========================================"
+            # 1. 获取源仓库的默认分支
+            echo ">>> 获取源仓库的默认分支..."
+            DEFAULT_BRANCH_INFO=$(git ls-remote --symref "$SOURCE_URL" HEAD)
+            DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | awk '/^ref:/ {sub(/refs\/heads\//, "", $2); print $2; exit}')
+            if [ -z "$DEFAULT_BRANCH" ]; then
+              # 降级方案：从 ls-remote 输出中提取分支名
+              DEFAULT_BRANCH=$(echo "$DEFAULT_BRANCH_INFO" | grep -o 'refs/heads/[^[:space:]]*' | head -1 | sed 's|refs/heads/||')
+            fi
+            if [ -z "$DEFAULT_BRANCH" ]; then
+              echo "错误：无法获取源仓库的默认分支，跳过此仓库。"
+              continue
+            fi
+            echo "默认分支: $DEFAULT_BRANCH"
+            # 2. 克隆目标 GitHub 仓库（使用 GH_TOKEN 认证）
+            echo ">>> 克隆目标仓库..."
+            git clone "https://${GH_TOKEN}@github.com/${TARGET_REPO}.git" sync-repo || {
+              echo "错误：克隆目标仓库失败，请检查目标仓库是否存在及 Token 权限。"
+              continue
+            }
+            cd sync-repo
+            # 3. 添加源仓库为远程，并拉取默认分支
+            echo ">>> 添加源仓库远程并拉取更新..."
+            git remote add upstream "$SOURCE_URL" 2>/dev/null || git remote set-url upstream "$SOURCE_URL"
+            git fetch upstream "$DEFAULT_BRANCH" --depth=1
+            # 4. 检查是否需要同步
+            echo ">>> 检查差异..."
+            if git diff --quiet FETCH_HEAD "$DEFAULT_BRANCH"; then
+              echo "[$DEFAULT_BRANCH] 已是最新，无需同步。"
+            else
+              echo "检测到更新，正在同步..."
+              # 尝试快速合并（保留目标仓库的本地提交，如果有的话）
+              if git merge --ff-only FETCH_HEAD; then
+                git push origin "$DEFAULT_BRANCH"
+                echo "[$DEFAULT_BRANCH] 快速合并同步完成。"
+              else
+                echo "警告：快速合并失败（可能存在历史分歧），改为强制同步（丢弃目标仓库的本地更改）。"
+                git reset --hard FETCH_HEAD
+                git push --force origin "$DEFAULT_BRANCH"
+                echo "[$DEFAULT_BRANCH] 强制同步完成。"
+              fi
+            fi
+            # 5. 清理
+            cd ..
+            rm -rf sync-repo
+            echo -e "完成：$TARGET_REPO\n"
+            sleep 0.5
+          done
