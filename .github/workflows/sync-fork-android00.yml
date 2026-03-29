@@ -39,6 +39,7 @@ jobs:
             "slapperwan/gh4a:zxgv5/a-gh4a"
             "OpenHub-Store/Github-Store:zxgv5/a-Github-Store"
             "gkd-kit/gkd:zxgv5/a-gkd"
+            "HeliBorg/HeliBoard:zxgv5/a-HeliBoard"
             "T8RIN/ImageToolbox:zxgv5/a-ImageToolbox"
             "Kunzisoft/KeePassDX:zxgv5/a-KeePassDX"
             "koreader/koreader:zxgv5/a-koreader"
