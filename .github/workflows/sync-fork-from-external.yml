@@ -1,22 +1,22 @@
 name: sync-fork-from-external
-
+ 
 on:
   schedule:
     - cron: '0 14 * * *'
   workflow_dispatch:
-
+ 
 jobs:
   sync-repos:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+ 
       - name: Setup git
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-
+ 
       - name: Sync all repositories
         env:
           GH_TOKEN: ${{ secrets.SYNC_FORK_TOKEN }}  # GitHub Personal Access Token（需有写入目标仓库权限）
@@ -56,7 +56,7 @@ jobs:
             # 3. 添加源仓库为远程，并拉取默认分支
             echo ">>> 添加源仓库远程并拉取更新..."
             git remote add upstream "$SOURCE_URL" 2>/dev/null || git remote set-url upstream "$SOURCE_URL"
-            git fetch upstream "$DEFAULT_BRANCH" --depth=1
+            git fetch upstream "$DEFAULT_BRANCH"
             # 4. 检查是否需要同步
             echo ">>> 检查差异..."
             if git diff --quiet FETCH_HEAD "$DEFAULT_BRANCH"; then
