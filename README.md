@@ -1,1 +1,1 @@
-# 杂项 ci 仓库
+# misc ci repository.
