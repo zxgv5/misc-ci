@@ -17,8 +17,10 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout ci source repo
         uses: actions/checkout@main
+        with:
+          path: ci_source
 
       - name: Set up tools
         run: |
