@@ -1,0 +1,47 @@
+name: download-files-from-remote
+
+on:
+  workflow_dispatch:
+    inputs:
+      mega_link:
+        description: '文件链接'
+        required: true
+        type: string
+      download_path:
+        description: '保存路径'
+        required: false
+        default: './downloads'
+        type: string
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Set up tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y megatools
+
+      - name: Download files
+        run: |
+          mkdir -p ${{ inputs.download_path }}
+          megadl '${{ inputs.mega_link }}' --path ${{ inputs.download_path }}
+  
+      - name: List downloaded file
+        run: |
+          echo "完成列表："
+          ls -la ${{ inputs.download_path }}
+
+      - name: Generate timestamp
+        run: |
+          echo "BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV
+
+      - name: Encrypt apks and create release
+        uses: ./ci_source/.github/actions/aes256pac_release/
+        with:
+          ZIP_AES256_PWD: ${{ secrets.ZIP_AES256_PWD }}
+          ARTIFACT_DIRECTORY_PATH: "${{ inputs.download_path }}"
+          RELEASE_TAG_NAME: "${{ env.BUILD_DATE }}-from-remote"
