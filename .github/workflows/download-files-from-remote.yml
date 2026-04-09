@@ -16,6 +16,8 @@ on:
 jobs:
   download:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout ci source repo
         uses: actions/checkout@main
