@@ -47,6 +47,6 @@ jobs:
         uses: ./ci_source/.github/actions/aes256pac_release/
         with:
           ZIP_AES256_PWD: ${{ secrets.ZIP_AES256_PWD }}
-          ZIP_COMPRESS_LEVEL: 1
+          # ZIP_COMPRESS_LEVEL: 1
           ARTIFACT_DIRECTORY_PATH: "${{ inputs.download_path }}"
           RELEASE_TAG_NAME: "${{ env.BUILD_DATE }}-from-remote"
