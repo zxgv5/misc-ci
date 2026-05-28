@@ -27,7 +27,7 @@ jobs:
             "fantasytyx/bv:zxgv5/a-fantasy-bv"
             "cat3399/blbl:zxgv5/a-blbl"
             "jay3-yy/BiliPai:zxgv5/a-BiliPai"
-            "qianxuntudou-ops/MyBili:zxgv5/B1b1"
+            "qianxuntudou-ops/MyBili:zxgv5/a-B1b1"
           )
           for pair in "${repo_pairs[@]}"; do
             SOURCE_REPO="${pair%:*}"
