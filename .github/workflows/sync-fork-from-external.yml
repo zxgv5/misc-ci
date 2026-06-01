@@ -76,6 +76,7 @@ jobs:
             fi
             # 5. 清理
             cd ..
+            find sync-repo -mindepth 1 -delete
             rm -rf sync-repo
             echo -e "完成：$TARGET_REPO\n"
             sleep 0.5
