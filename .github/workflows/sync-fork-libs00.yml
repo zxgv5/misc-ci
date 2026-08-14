@@ -27,6 +27,7 @@ jobs:
             "weidai11/cryptopp:zxgv5/lib-cryptopp"
             "pjkundert/ezpwd-reed-solomon:zxgv5/lib-ezpwd-reed-solomon"
             "jeaiii/itoa:zxgv5/lib-Fast-itoa"
+            "brian-armstrong/fec:zxgv5/lib-fec"
             "FALCONN-LIB/FFHT:zxgv5/lib-FFHT"
             "linbox-team/fflas-ffpack:zxgv5/lib-fflas-ffpack"
             "flintlib/flint:zxgv5/lib-flint"
