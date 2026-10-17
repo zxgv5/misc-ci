@@ -10,7 +10,7 @@ on:
       download_path:
         description: '保存路径'
         required: false
-        default: './downloads'
+        default: './rmtdld'
         type: string
 
 jobs:
@@ -50,4 +50,4 @@ jobs:
           ZIP_AES256_PWD: ${{ secrets.ZIP_AES256_PWD }}
           # ZIP_COMPRESS_LEVEL: 1
           ARTIFACT_DIRECTORY_PATH: "${{ inputs.download_path }}"
-          RELEASE_TAG_NAME: "${{ env.BUILD_DATE }}-from-remote"
+          RELEASE_TAG_NAME: "${{ env.BUILD_DATE }}-rmtdld"
